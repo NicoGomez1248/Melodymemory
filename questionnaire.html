@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Create My Song — Melody Memory</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black:#0B0A09; --panel:#151310; --panel-2:#1B1814;
+    --gold:#D9BA76; --gold-bright:#E8CE95; --cream:#F3EFE6;
+    --line:rgba(217,186,118,0.22); --line-soft:rgba(243,239,230,0.1);
+    --err:#E3897A;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:'Inter',sans-serif; background:var(--black); color:var(--cream); line-height:1.5; -webkit-font-smoothing:antialiased; min-height:100vh; }
+  h1,h2,h3 { font-family:'Fraunces',serif; font-weight:500; }
+  a { color:inherit; }
+  ::selection { background:var(--gold); color:var(--black); }
+  :focus-visible { outline:2px solid var(--gold); outline-offset:2px; }
+
+  /* ---------- HEADER / PROGRESS ---------- */
+  header.top {
+    position:sticky; top:0; z-index:20; background:rgba(11,10,9,0.9); backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line-soft);
+  }
+  .top-inner { max-width:720px; margin:0 auto; padding:20px 24px; display:flex; align-items:center; gap:18px; }
+  .brandmark { font-family:'Fraunces',serif; font-weight:600; font-size:1rem; display:flex; align-items:center; gap:8px; flex-shrink:0; }
+  .brandmark svg { width:20px; height:20px; }
+  .progress-track { flex:1; height:3px; background:var(--line-soft); border-radius:100px; position:relative; overflow:hidden; }
+  .progress-fill { position:absolute; inset:0; width:0%; background:var(--gold); border-radius:100px; transition:width .35s ease; }
+  .step-count { font-size:0.78rem; color:rgba(243,239,230,0.5); flex-shrink:0; white-space:nowrap; }
+
+  /* ---------- LAYOUT ---------- */
+  main { max-width:640px; margin:0 auto; padding:56px 24px 160px; }
+  .step { display:none; animation:fadeIn .35s ease; }
+  .step.active { display:block; }
+  @keyframes fadeIn { from{opacity:0; transform:translateY(8px);} to{opacity:1; transform:translateY(0);} }
+  .step-eyebrow { font-size:0.72rem; font-weight:600; letter-spacing:0.22em; text-transform:uppercase; color:var(--gold); margin-bottom:14px; }
+  .step h2 { font-size:1.7rem; line-height:1.2; margin-bottom:10px; }
+  .step .hint { color:rgba(243,239,230,0.55); font-size:0.95rem; margin-bottom:32px; }
+
+  /* ---------- INPUTS ---------- */
+  label.field-label { display:block; font-size:0.85rem; font-weight:600; margin-bottom:10px; color:rgba(243,239,230,0.85); }
+  input[type=text], input[type=email], textarea {
+    width:100%; background:var(--panel); border:1px solid var(--line-soft); color:var(--cream);
+    border-radius:8px; padding:14px 16px; font-family:'Inter',sans-serif; font-size:0.98rem;
+    transition:border-color .2s;
+  }
+  input[type=text]:focus, input[type=email]:focus, textarea:focus { border-color:var(--gold); outline:none; }
+  textarea { resize:vertical; min-height:110px; line-height:1.6; }
+  .field-block { margin-bottom:28px; }
+  .field-error { color:var(--err); font-size:0.82rem; margin-top:8px; display:none; }
+  .field-block.invalid input, .field-block.invalid textarea { border-color:var(--err); }
+  .field-block.invalid .field-error { display:block; }
+  .char-count { text-align:right; font-size:0.76rem; color:rgba(243,239,230,0.35); margin-top:6px; }
+
+  /* ---------- CHIP SELECTORS ---------- */
+  .chip-group { display:flex; flex-wrap:wrap; gap:10px; }
+  .chip {
+    border:1px solid var(--line-soft); background:var(--panel); color:rgba(243,239,230,0.85);
+    padding:11px 18px; border-radius:100px; font-size:0.88rem; cursor:pointer; transition:all .15s;
+    display:inline-flex; align-items:center; gap:8px;
+  }
+  .chip:hover { border-color:var(--gold); }
+  .chip.selected { background:var(--gold); border-color:var(--gold); color:var(--black); font-weight:600; }
+  .chip .desc { display:block; font-size:0.7rem; opacity:0.65; font-weight:400; }
+
+  /* ---------- CARD SELECT (vocal style etc) ---------- */
+  .card-select { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+  .card-opt {
+    border:1px solid var(--line-soft); background:var(--panel); border-radius:10px; padding:20px;
+    cursor:pointer; transition:all .15s; text-align:center;
+  }
+  .card-opt:hover { border-color:var(--gold); }
+  .card-opt.selected { border-color:var(--gold); background:var(--panel-2); box-shadow:0 0 0 1px var(--gold); }
+  .card-opt .icon { font-size:1.4rem; margin-bottom:10px; }
+  .card-opt .lbl { font-weight:600; font-size:0.95rem; margin-bottom:4px; }
+  .card-opt .sub { font-size:0.78rem; color:rgba(243,239,230,0.5); }
+
+  /* ---------- SUGGESTION NOTE ---------- */
+  .suggest-note { display:flex; align-items:flex-start; gap:10px; background:var(--panel); border:1px solid var(--line); border-radius:8px; padding:14px 16px; margin-top:16px; font-size:0.85rem; color:rgba(243,239,230,0.65); }
+  .suggest-note .mark { color:var(--gold); flex-shrink:0; }
+
+  /* ---------- NAV BUTTONS (sticky footer) ---------- */
+  .step-footer {
+    position:fixed; bottom:0; left:0; right:0; background:rgba(11,10,9,0.92); backdrop-filter:blur(10px);
+    border-top:1px solid var(--line-soft); padding:18px 24px; z-index:20;
+  }
+  .step-footer-inner { max-width:640px; margin:0 auto; display:flex; justify-content:space-between; align-items:center; gap:16px; }
+  .btn-primary {
+    background:var(--gold); color:var(--black); font-weight:700; padding:15px 32px; font-size:0.9rem;
+    letter-spacing:0.03em; text-transform:uppercase; border-radius:6px; border:none; cursor:pointer;
+    transition:transform .15s ease, box-shadow .15s ease; box-shadow:0 10px 24px rgba(217,186,118,0.16);
+  }
+  .btn-primary:hover { transform:translateY(-1px); }
+  .btn-primary:disabled { opacity:0.35; cursor:not-allowed; transform:none; box-shadow:none; }
+  .btn-ghost {
+    background:transparent; color:rgba(243,239,230,0.6); font-weight:600; padding:15px 20px; font-size:0.88rem;
+    border:none; cursor:pointer;
+  }
+  .btn-ghost:hover { color:var(--cream); }
+  .btn-ghost:disabled { opacity:0; pointer-events:none; }
+
+  /* ---------- REVIEW STEP ---------- */
+  .review-block { border:1px solid var(--line-soft); border-radius:10px; padding:20px 22px; margin-bottom:14px; display:flex; justify-content:space-between; gap:16px; align-items:flex-start; }
+  .review-block .rb-label { font-size:0.75rem; text-transform:uppercase; letter-spacing:0.08em; color:var(--gold); margin-bottom:6px; }
+  .review-block .rb-value { font-size:0.95rem; color:rgba(243,239,230,0.9); line-height:1.5; }
+  .review-block .rb-edit { font-size:0.8rem; color:var(--gold); background:none; border:none; cursor:pointer; flex-shrink:0; white-space:nowrap; }
+  .review-block .rb-edit:hover { text-decoration:underline; }
+
+  /* ---------- CONFIRMATION ---------- */
+  .confirm-wrap { text-align:center; padding:40px 0; }
+  .confirm-mark { width:64px; height:64px; margin:0 auto 24px; border:1.5px solid var(--gold); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:1.6rem; color:var(--gold); }
+  .confirm-wrap h2 { margin-bottom:14px; }
+  .confirm-wrap p { color:rgba(243,239,230,0.6); max-width:420px; margin:0 auto; }
+
+  @media (max-width:600px) {
+    .card-select { grid-template-columns:1fr; }
+    main { padding:40px 20px 150px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="top-inner">
+    <div class="brandmark">
+      <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M32 54 C 8 38, 8 18, 22 14 C 29 12, 32 18, 32 22 C 32 18, 35 12, 42 14 C 56 18, 56 38, 32 54 Z" stroke="#D9BA76" stroke-width="2"/>
+        <path d="M27 24 v14 a4 4 0 1 1 -2 -3.4 V24 l10 -3 v12 a4 4 0 1 1 -2 -3.4 V21 z" fill="#D9BA76"/>
+      </svg>
+    </div>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="step-count" id="stepCount">Step 1 of 10</div>
+  </div>
+</header>
+
+<main>
+  <form id="songForm" novalidate>
+
+    <!-- STEP 1: Who is this for -->
+    <section class="step active" data-step="1">
+      <div class="step-eyebrow">Let's start with them</div>
+      <h2>Who is this song for?</h2>
+      <p class="hint">This is the person who'll hear their story turned into music.</p>
+      <div class="field-block" data-field="recipientName">
+        <label class="field-label">Their name (or nickname)</label>
+        <input type="text" name="recipientName" placeholder="e.g. Mom, Grandpa Joe, Sarah">
+        <div class="field-error">Let us know who this song is for.</div>
+      </div>
+      <div class="field-block" data-field="relationship">
+        <label class="field-label">Your relationship to them</label>
+        <div class="chip-group" data-chip-single="relationship">
+          <button type="button" class="chip">Mom</button>
+          <button type="button" class="chip">Dad</button>
+          <button type="button" class="chip">Partner / Spouse</button>
+          <button type="button" class="chip">Sibling</button>
+          <button type="button" class="chip">Grandparent</button>
+          <button type="button" class="chip">Friend</button>
+          <button type="button" class="chip">Son / Daughter</button>
+          <button type="button" class="chip">Myself</button>
+          <button type="button" class="chip">Other</button>
+        </div>
+        <div class="field-error">Pick the closest relationship — it helps set the tone.</div>
+      </div>
+    </section>
+
+    <!-- STEP 2: Occasion -->
+    <section class="step" data-step="2">
+      <div class="step-eyebrow">The moment</div>
+      <h2>What's the occasion?</h2>
+      <p class="hint">Pick what fits best — this shapes the mood of the song.</p>
+      <div class="field-block" data-field="occasion">
+        <div class="chip-group" data-chip-single="occasion">
+          <button type="button" class="chip">Birthday</button>
+          <button type="button" class="chip">Anniversary</button>
+          <button type="button" class="chip">Wedding</button>
+          <button type="button" class="chip">In Loving Memory</button>
+          <button type="button" class="chip">Graduation</button>
+          <button type="button" class="chip">Just Because</button>
+          <button type="button" class="chip">New Baby</button>
+          <button type="button" class="chip">Other</button>
+        </div>
+        <div class="field-error">Choose the occasion this song is for.</div>
+      </div>
+    </section>
+
+    <!-- STEP 3: The story -->
+    <section class="step" data-step="3">
+      <div class="step-eyebrow">The heart of it</div>
+      <h2>Tell us the story.</h2>
+      <p class="hint">The more specific, the better. Names, places, dates, inside jokes — the details only you would know.</p>
+      <div class="field-block" data-field="story">
+        <label class="field-label">Their story, in your own words</label>
+        <textarea name="story" maxlength="1200" placeholder="e.g. My parents met at a diner on Route 9 in 1978. Dad spilled coffee on her, and she still brings it up at every holiday..."></textarea>
+        <div class="char-count"><span id="storyCount">0</span> / 1200</div>
+        <div class="field-error">Share at least a sentence or two — this is what the song is built from.</div>
+      </div>
+      <div class="suggest-note"><span class="mark">✦</span> Try including: a specific memory or moment, a place, an inside joke, or something only they'd understand.</div>
+    </section>
+
+    <!-- STEP 4: Theme / mood -->
+    <section class="step" data-step="4">
+      <div class="step-eyebrow">The feeling</div>
+      <h2>What mood should the song have?</h2>
+      <p class="hint">Pick up to 2 — we'll blend them.</p>
+      <div class="field-block" data-field="mood">
+        <div class="chip-group" data-chip-multi="mood" data-max="2">
+          <button type="button" class="chip">Nostalgic</button>
+          <button type="button" class="chip">Romantic</button>
+          <button type="button" class="chip">Uplifting</button>
+          <button type="button" class="chip">Funny / Playful</button>
+          <button type="button" class="chip">Heartfelt</button>
+          <button type="button" class="chip">Bittersweet</button>
+          <button type="button" class="chip">Triumphant</button>
+          <button type="button" class="chip">Peaceful</button>
+        </div>
+        <div class="field-error">Pick at least one mood.</div>
+      </div>
+    </section>
+
+    <!-- STEP 5: Genre -->
+    <section class="step" data-step="5">
+      <div class="step-eyebrow">The sound</div>
+      <h2>Pick a genre.</h2>
+      <p class="hint">Not sure? Go with whatever they'd naturally listen to.</p>
+      <div class="field-block" data-field="genre">
+        <div class="chip-group" data-chip-single="genre">
+          <button type="button" class="chip">Pop</button>
+          <button type="button" class="chip">Country</button>
+          <button type="button" class="chip">R&amp;B / Soul</button>
+          <button type="button" class="chip">Acoustic / Folk</button>
+          <button type="button" class="chip">Hip-Hop</button>
+          <button type="button" class="chip">Rock</button>
+          <button type="button" class="chip">Gospel / Christian</button>
+          <button type="button" class="chip">Jazz</button>
+          <button type="button" class="chip">Not sure — you pick</button>
+        </div>
+        <div class="field-error">Pick a genre, or let us choose.</div>
+      </div>
+      <div class="suggest-note"><span class="mark">✦</span> Acoustic/Folk and Pop are our most requested genres for gifts — they tend to age well and suit most listeners.</div>
+    </section>
+
+    <!-- STEP 6: Vocal style -->
+    <section class="step" data-step="6">
+      <div class="step-eyebrow">The voice</div>
+      <h2>Who should sing it?</h2>
+      <div class="field-block" data-field="vocalGender">
+        <div class="card-select">
+          <div class="card-opt" data-value="Female voice"><div class="icon">♀</div><div class="lbl">Female voice</div><div class="sub">Warmer, softer delivery</div></div>
+          <div class="card-opt" data-value="Male voice"><div class="icon">♂</div><div class="lbl">Male voice</div><div class="sub">Deeper, grounded delivery</div></div>
+          <div class="card-opt" data-value="Duet"><div class="icon">♫</div><div class="lbl">Duet</div><div class="sub">Two voices, back and forth</div></div>
+          <div class="card-opt" data-value="No preference"><div class="icon">✦</div><div class="lbl">No preference</div><div class="sub">Let us choose the best fit</div></div>
+        </div>
+        <div class="field-error">Pick a vocal style.</div>
+      </div>
+    </section>
+
+    <!-- STEP 7: Vocal tone + tempo -->
+    <section class="step" data-step="7">
+      <div class="step-eyebrow">The delivery</div>
+      <h2>How should it feel to listen to?</h2>
+      <div class="field-block" data-field="vocalTone">
+        <label class="field-label">Vocal tone</label>
+        <div class="chip-group" data-chip-single="vocalTone">
+          <button type="button" class="chip">Warm &amp; soft</button>
+          <button type="button" class="chip">Powerful &amp; emotional</button>
+          <button type="button" class="chip">Smooth &amp; soulful</button>
+          <button type="button" class="chip">Raspy &amp; textured</button>
+          <button type="button" class="chip">No preference</button>
+        </div>
+        <div class="field-error">Pick a vocal tone.</div>
+      </div>
+      <div class="field-block" data-field="tempo">
+        <label class="field-label">Tempo &amp; energy</label>
+        <div class="chip-group" data-chip-single="tempo">
+          <button type="button" class="chip">Slow &amp; emotional ballad</button>
+          <button type="button" class="chip">Mid-tempo &amp; heartfelt</button>
+          <button type="button" class="chip">Upbeat &amp; celebratory</button>
+        </div>
+        <div class="field-error">Pick a tempo.</div>
+      </div>
+    </section>
+
+    <!-- STEP 8: Specific words / must-includes -->
+    <section class="step" data-step="8">
+      <div class="step-eyebrow">The finishing touches</div>
+      <h2>Any words or lines we should include?</h2>
+      <p class="hint">Optional — a nickname, a saying they always use, a specific date or place.</p>
+      <div class="field-block" data-field="mustInclude" data-optional="true">
+        <label class="field-label">Specific words, phrases, or details (optional)</label>
+        <textarea name="mustInclude" maxlength="400" placeholder="e.g. She always says 'well butter my biscuit.' Please mention our dog, Biscuit, and the date June 14th."></textarea>
+      </div>
+      <div class="field-block" data-field="avoid" data-optional="true">
+        <label class="field-label">Anything to avoid mentioning? (optional)</label>
+        <textarea name="avoid" maxlength="400" placeholder="e.g. Please don't mention her age, or the hospital stay."></textarea>
+      </div>
+    </section>
+
+    <!-- STEP 9: Contact info -->
+    <section class="step" data-step="9">
+      <div class="step-eyebrow">Almost there</div>
+      <h2>Where should we send it?</h2>
+      <p class="hint">We'll email you both personalized songs once they're ready.</p>
+      <div class="field-block" data-field="yourName">
+        <label class="field-label">Your name</label>
+        <input type="text" name="yourName" placeholder="First and last name">
+        <div class="field-error">We need your name.</div>
+      </div>
+      <div class="field-block" data-field="email">
+        <label class="field-label">Email address</label>
+        <input type="email" name="email" placeholder="you@example.com">
+        <div class="field-error">A valid email is required so we can deliver your songs.</div>
+      </div>
+    </section>
+
+    <!-- STEP 10: Review -->
+    <section class="step" data-step="10">
+      <div class="step-eyebrow">Last look</div>
+      <h2>Review your details</h2>
+      <p class="hint">Make sure everything looks right before you continue.</p>
+      <div id="reviewList"></div>
+    </section>
+
+    <!-- CONFIRMATION (post-submit) -->
+    <section class="step" data-step="11">
+      <div class="confirm-wrap">
+        <div class="confirm-mark">✓</div>
+        <h2>Got it — thank you!</h2>
+        <p>Your details are saved. Next, you'll be able to choose your song package and complete payment — that step is coming online shortly. We'll be in touch at the email you provided.</p>
+      </div>
+    </section>
+
+  </form>
+</main>
+
+<div class="step-footer">
+  <div class="step-footer-inner">
+    <button type="button" class="btn-ghost" id="backBtn">Back</button>
+    <button type="button" class="btn-primary" id="nextBtn">Continue</button>
+  </div>
+</div>
+
+<script>
+(function(){
+  const totalSteps = 10; // step 11 is confirmation, reached only after review submit
+  let current = 1;
+  const answers = {};
+
+  const stepEls = Array.from(document.querySelectorAll('.step'));
+  const progressFill = document.getElementById('progressFill');
+  const stepCount = document.getElementById('stepCount');
+  const backBtn = document.getElementById('backBtn');
+  const nextBtn = document.getElementById('nextBtn');
+  const reviewList = document.getElementById('reviewList');
+
+  // ---- Single-select chip groups ----
+  document.querySelectorAll('[data-chip-single]').forEach(group => {
+    const key = group.getAttribute('data-chip-single');
+    group.querySelectorAll('.chip').forEach(chip => {
+      chip.addEventListener('click', () => {
+        group.querySelectorAll('.chip').forEach(c => c.classList.remove('selected'));
+        chip.classList.add('selected');
+        answers[key] = chip.textContent.trim();
+        clearError(group.closest('.field-block'));
+      });
+    });
+  });
+
+  // ---- Multi-select chip groups (with max) ----
+  document.querySelectorAll('[data-chip-multi]').forEach(group => {
+    const key = group.getAttribute('data-chip-multi');
+    const max = parseInt(group.getAttribute('data-max') || '99', 10);
+    answers[key] = [];
+    group.querySelectorAll('.chip').forEach(chip => {
+      chip.addEventListener('click', () => {
+        const label = chip.textContent.trim();
+        const idx = answers[key].indexOf(label);
+        if (idx > -1) {
+          answers[key].splice(idx, 1);
+          chip.classList.remove('selected');
+        } else {
+          if (answers[key].length >= max) {
+            const firstSelected = group.querySelector('.chip.selected');
+            if (firstSelected) {
+              answers[key].shift();
+              firstSelected.classList.remove('selected');
+            }
+          }
+          answers[key].push(label);
+          chip.classList.add('selected');
+        }
+        clearError(group.closest('.field-block'));
+      });
+    });
+  });
+
+  // ---- Card select (vocal gender) ----
+  document.querySelectorAll('.card-select').forEach(group => {
+    const block = group.closest('.field-block');
+    const key = block.getAttribute('data-field');
+    group.querySelectorAll('.card-opt').forEach(card => {
+      card.addEventListener('click', () => {
+        group.querySelectorAll('.card-opt').forEach(c => c.classList.remove('selected'));
+        card.classList.add('selected');
+        answers[key] = card.getAttribute('data-value');
+        clearError(block);
+      });
+    });
+  });
+
+  // ---- Text inputs / textareas ----
+  document.querySelectorAll('input[type=text], input[type=email], textarea').forEach(input => {
+    input.addEventListener('input', () => {
+      answers[input.name] = input.value;
+      clearError(input.closest('.field-block'));
+      if (input.name === 'story') {
+        document.getElementById('storyCount').textContent = input.value.length;
+      }
+    });
+  });
+
+  function clearError(block) {
+    if (block) block.classList.remove('invalid');
+  }
+
+  function showError(block) {
+    if (block) block.classList.add('invalid');
+  }
+
+  // ---- Validation per step ----
+  function validateStep(stepNum) {
+    const stepEl = stepEls.find(s => s.getAttribute('data-step') == stepNum);
+    if (!stepEl) return true;
+    const blocks = stepEl.querySelectorAll('.field-block:not([data-optional="true"])');
+    let valid = true;
+    blocks.forEach(block => {
+      const field = block.getAttribute('data-field');
+      const val = answers[field];
+      let filled = false;
+      if (Array.isArray(val)) filled = val.length > 0;
+      else if (typeof val === 'string') filled = val.trim().length > 0;
+      if (field === 'email' && filled) {
+        filled = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val.trim());
+      }
+      if (!filled) { valid = false; showError(block); }
+    });
+    return valid;
+  }
+
+  // ---- Render review ----
+  function renderReview() {
+    const rows = [
+      ['Recipient', answers.recipientName, 1],
+      ['Relationship', answers.relationship, 1],
+      ['Occasion', answers.occasion, 2],
+      ['The story', answers.story, 3],
+      ['Mood', (answers.mood||[]).join(', '), 4],
+      ['Genre', answers.genre, 5],
+      ['Vocal style', answers.vocalGender, 6],
+      ['Vocal tone', answers.vocalTone, 7],
+      ['Tempo', answers.tempo, 7],
+      ['Must include', answers.mustInclude || '—', 8],
+      ['Avoid mentioning', answers.avoid || '—', 8],
+      ['Your name', answers.yourName, 9],
+      ['Email', answers.email, 9],
+    ];
+    reviewList.innerHTML = rows.map(([label, value, step]) => `
+      <div class="review-block">
+        <div>
+          <div class="rb-label">${label}</div>
+          <div class="rb-value">${(value || '—').toString().replace(/</g,'&lt;')}</div>
+        </div>
+        <button type="button" class="rb-edit" data-jump="${step}">Edit</button>
+      </div>
+    `).join('');
+    reviewList.querySelectorAll('.rb-edit').forEach(btn => {
+      btn.addEventListener('click', () => goTo(parseInt(btn.getAttribute('data-jump'), 10)));
+    });
+  }
+
+  // ---- Navigation ----
+  function goTo(stepNum) {
+    current = stepNum;
+    stepEls.forEach(s => s.classList.toggle('active', s.getAttribute('data-step') == stepNum));
+    progressFill.style.width = Math.min((current-1)/totalSteps, 1) * 100 + '%';
+    stepCount.textContent = current <= totalSteps ? `Step ${current} of ${totalSteps}` : 'All set';
+    backBtn.disabled = current === 1;
+    nextBtn.textContent = current === totalSteps ? 'Submit Details' : (current === totalSteps+1 ? 'Done' : 'Continue');
+    if (current === totalSteps) renderReview();
+    window.scrollTo({top:0, behavior:'smooth'});
+  }
+
+  backBtn.addEventListener('click', () => { if (current > 1) goTo(current - 1); });
+
+  nextBtn.addEventListener('click', () => {
+    if (current <= totalSteps) {
+      if (!validateStep(current)) return;
+    }
+    if (current === totalSteps) {
+      // Final submit — Phase 1: no backend yet, just show confirmation.
+      goTo(totalSteps + 1);
+      nextBtn.style.display = 'none';
+      backBtn.style.display = 'none';
+      return;
+    }
+    goTo(current + 1);
+  });
+
+  goTo(1);
+})();
+</script>
+
+</body>
+</html>
