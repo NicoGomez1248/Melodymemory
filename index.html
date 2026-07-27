@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -26,7 +25,18 @@
   .wrap { max-width:1240px; margin:0 auto; padding:0 32px; }
   .eyebrow { font-size:0.72rem; font-weight:600; letter-spacing:0.26em; text-transform:uppercase; color:var(--gold); }
   ::selection { background:var(--gold); color:var(--black); }
-  :focus-visible { outline:2px solid var(--gold); outline-offset:3px; }
+  /* Prevent click/focus boxes from appearing around links and buttons. */
+  a, button, [role="button"], .hs-link {
+    -webkit-tap-highlight-color:transparent;
+  }
+  a:focus, a:focus-visible,
+  button:focus, button:focus-visible,
+  [role="button"]:focus, [role="button"]:focus-visible,
+  .hs-link:focus, .hs-link:focus-visible {
+    outline:none !important;
+    outline-offset:0 !important;
+    box-shadow:none !important;
+  }
 
   /* ============ NAV ============ */
   nav.site-nav { position:sticky; top:0; z-index:50; background:rgba(11,10,9,0.88); backdrop-filter:blur(10px); border-bottom:1px solid var(--line-soft); }
@@ -64,7 +74,7 @@
     position:absolute; display:block; background:transparent; border:none; padding:0; margin:0;
     color:transparent; cursor:pointer; text-indent:-9999px; overflow:hidden;
   }
-  .hs-link:focus-visible { outline:2px solid var(--gold); outline-offset:2px; border-radius:8px; }
+  .hs-link:focus, .hs-link:focus-visible { outline:none; box-shadow:none; }
   .hs-home { left:1.5%; top:1.0%; width:17.8%; height:10.7%; }
   .hs-nav-how { left:27.9%; top:2.0%; width:8.6%; height:6.0%; }
   .hs-nav-examples { left:36.9%; top:2.0%; width:6.7%; height:6.0%; }
