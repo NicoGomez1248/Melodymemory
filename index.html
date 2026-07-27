@@ -128,8 +128,23 @@
   .hero-song-close:hover { border-color:var(--gold); color:var(--gold); }
 
 
-  .hs-link::after { content:''; position:absolute; inset:0; border:1px solid transparent; border-radius:inherit; transition:border-color .16s ease, background-color .16s ease; }
-  .hs-link:hover::after { border-color:rgba(232,206,149,.38); background:rgba(217,186,118,.025); }
+  /* Invisible clickable areas must remain completely invisible on hover, focus and click. */
+  .hs-link::before,
+  .hs-link::after {
+    content:none !important;
+    display:none !important;
+  }
+  .hs-link,
+  .hs-link:hover,
+  .hs-link:active,
+  .hs-link:focus,
+  .hs-link:focus-visible {
+    background:transparent !important;
+    border-color:transparent !important;
+    outline:none !important;
+    box-shadow:none !important;
+    filter:none !important;
+  }
   .hs-player-previous { left:68.0%; top:59.0%; width:4.0%; height:8.7%; border-radius:50%; }
   .hs-player-next { left:77.0%; top:59.0%; width:4.0%; height:8.7%; border-radius:50%; }
   .hs-player-favorite { left:84.5%; top:58.7%; width:4.7%; height:9.1%; border-radius:50%; }
