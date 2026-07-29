@@ -1444,13 +1444,10 @@
     box-shadow:0 0 14px rgba(217,186,118,.10);
   }
 
-  /* Gold buttons: soft brightness and glow, without any extra border box. */
+  /* Gold CTA overlays are now rebuilt as real buttons, not image-only hotspots. */
   .hero-exact .top-create-hit::after,
   .hero-exact .main-create-hit::after {
-    inset:4%;
-    border-radius:9px;
-    background:rgba(255,236,188,.08);
-    box-shadow:0 8px 24px rgba(217,186,118,.30), inset 0 0 18px rgba(255,245,218,.10);
+    display:none;
   }
 
   .hero-exact .play-hit::after {
@@ -1465,11 +1462,7 @@
     opacity:1;
   }
 
-  .hero-exact .top-create-hit:hover,
-  .hero-exact .main-create-hit:hover,
   .hero-exact .play-hit:hover,
-  .hero-exact .top-create-hit:focus-visible,
-  .hero-exact .main-create-hit:focus-visible,
   .hero-exact .play-hit:focus-visible {
     filter:brightness(1.055);
   }
@@ -1556,11 +1549,76 @@
     font-weight:400;
   }
 
-  .hero-exact .headline-copy .text-line:last-child {
-    color:#E0AD59 !important;
-    -webkit-text-fill-color:#E0AD59 !important;
-    font-style:italic;
-    font-weight:500;
+  .hero-exact .hero-cta-gold {
+    z-index:9;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    text-decoration:none;
+    white-space:nowrap;
+    color:#17120D !important;
+    -webkit-text-fill-color:#17120D !important;
+    font-family:'Inter',sans-serif;
+    font-style:normal;
+    font-weight:500 !important;
+    letter-spacing:-0.02em !important;
+    line-height:1.2;
+    border:1px solid rgba(255,229,178,0.65) !important;
+    border-radius:14px !important;
+    background:
+      radial-gradient(circle at 52% 38%, rgba(255,226,170,0.22), transparent 38%),
+      linear-gradient(135deg, #B88A51 0%, #CBA363 38%, #D4B57E 68%, #B98D56 100%) !important;
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,0.20),
+      inset 0 -1px 0 rgba(91,57,23,0.16),
+      0 7px 18px rgba(0,0,0,0.35) !important;
+    transition:
+      transform .18s ease,
+      border-color .18s ease,
+      background-color .18s ease,
+      color .18s ease,
+      box-shadow .18s ease,
+      filter .18s ease;
+  }
+
+  .hero-exact .hero-cta-gold:hover,
+  .hero-exact .hero-cta-gold:focus-visible {
+    transform:translateY(-1px);
+    filter:brightness(1.04);
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,0.24),
+      inset 0 -1px 0 rgba(91,57,23,0.14),
+      0 8px 24px rgba(217,186,118,.30) !important;
+  }
+
+  .hero-exact .hero-cta-gold:focus,
+  .hero-exact .hero-cta-gold:focus-visible,
+  .hero-exact .hero-cta-gold:active {
+    outline:0 !important;
+  }
+
+  .hero-exact .hero-cta-gold::selection,
+  .hero-exact .hero-cta-gold *::selection {
+    color:#17120D !important;
+    -webkit-text-fill-color:#17120D !important;
+    background:rgba(255,229,178,0.42);
+  }
+
+  .hero-exact .top-create-hit.hero-cta-gold {
+    left:85.55%;
+    top:1.75%;
+    width:10.95%;
+    height:6.75%;
+    font-size:.96cqw;
+  }
+
+  .hero-exact .main-create-hit.hero-cta-gold {
+    left:3.9%;
+    top:69.15%;
+    width:15.25%;
+    height:7.15%;
+    font-size:1.12cqw;
   }
 
   .hero-exact .sub-copy {
@@ -1675,7 +1733,7 @@
     <a class="hero-hotspot nav-reactions" href="#reactions">Reacciones</a>
     <a class="hero-hotspot nav-faq" href="#faq">Preguntas frecuentes</a>
     <button type="button" class="hero-hotspot signin-hit" id="heroSignIn">Iniciar sesión</button>
-    <a class="hero-hotspot top-create-hit" href="questionnaire.html">Crear mi canción</a>
+    <a class="hero-hotspot hero-cta-gold top-create-hit" href="questionnaire.html">Crear mi canción</a>
 
     <p class="hero-selectable eyebrow-copy">TU HISTORIA. TU EMOCIÓN. TU CANCIÓN.</p>
 
@@ -1690,7 +1748,7 @@
       <span class="text-line">una canción única y profundamente personalizada.</span>
     </p>
 
-    <a class="hero-hotspot main-create-hit" href="questionnaire.html">Crear mi canción</a>
+    <a class="hero-hotspot hero-cta-gold main-create-hit" href="questionnaire.html">Crear mi canción</a>
     <a class="hero-hotspot listen-hit" href="#samples">Escuchar ejemplos</a>
     <a class="hero-hotspot reactions-hit" href="#reactions">Ver reacciones reales</a>
 
