@@ -1325,19 +1325,72 @@
     user-select:text;
   }
 
-  .hero-exact .hero-hotspot { cursor:pointer; }
-  .hero-exact .hero-selectable { cursor:text; pointer-events:auto; }
+  .hero-exact .hero-hotspot {
+    cursor:pointer;
+    border:1px solid transparent !important;
+    border-radius:10px;
+    transition:
+      border-color .22s ease,
+      background-color .22s ease,
+      box-shadow .22s ease,
+      filter .22s ease;
+  }
 
-  .hero-exact .hero-hotspot:hover,
+  .hero-exact .hero-selectable {
+    cursor:text;
+    pointer-events:auto;
+  }
+
   .hero-exact .hero-hotspot:focus,
   .hero-exact .hero-hotspot:focus-visible,
   .hero-exact .hero-hotspot:active {
-    border:0 !important;
     outline:0 !important;
-    box-shadow:none !important;
-    background:transparent !important;
-    transform:none !important;
-    filter:none !important;
+  }
+
+  .hero-exact .nav-how:hover,
+  .hero-exact .nav-examples:hover,
+  .hero-exact .nav-occasions:hover,
+  .hero-exact .nav-reactions:hover,
+  .hero-exact .nav-faq:hover,
+  .hero-exact .signin-hit:hover,
+  .hero-exact .listen-hit:hover,
+  .hero-exact .reactions-hit:hover,
+  .hero-exact .prev-hit:hover,
+  .hero-exact .next-hit:hover,
+  .hero-exact .favorite-hit:hover,
+  .hero-exact .story-hit:hover,
+  .hero-exact .nav-how:focus-visible,
+  .hero-exact .nav-examples:focus-visible,
+  .hero-exact .nav-occasions:focus-visible,
+  .hero-exact .nav-reactions:focus-visible,
+  .hero-exact .nav-faq:focus-visible,
+  .hero-exact .signin-hit:focus-visible,
+  .hero-exact .listen-hit:focus-visible,
+  .hero-exact .reactions-hit:focus-visible,
+  .hero-exact .prev-hit:focus-visible,
+  .hero-exact .next-hit:focus-visible,
+  .hero-exact .favorite-hit:focus-visible,
+  .hero-exact .story-hit:focus-visible {
+    border-color:rgba(217,186,118,.72) !important;
+    background:rgba(8,8,7,.12) !important;
+    box-shadow:
+      0 0 0 1px rgba(217,186,118,.08),
+      0 0 18px rgba(217,186,118,.13) !important;
+  }
+
+  .hero-exact .top-create-hit:hover,
+  .hero-exact .main-create-hit:hover,
+  .hero-exact .play-hit:hover,
+  .hero-exact .top-create-hit:focus-visible,
+  .hero-exact .main-create-hit:focus-visible,
+  .hero-exact .play-hit:focus-visible {
+    border-color:rgba(255,230,169,.72) !important;
+    background:rgba(240,196,105,.10) !important;
+    box-shadow:
+      0 0 0 1px rgba(255,237,190,.10),
+      0 0 24px rgba(232,188,95,.35),
+      inset 0 0 20px rgba(255,239,197,.10) !important;
+    filter:brightness(1.06);
   }
 
   .hero-exact .hero-hotspot::selection,
@@ -1411,8 +1464,24 @@
   .hero-exact .song-time-right { left:85.4%; top:76.0%; width:4%; height:3%; font-size:.84cqw; line-height:1.1; text-align:right; white-space:nowrap; }
   .hero-exact .song-quote-copy { left:60.2%; top:81.0%; width:25.5%; height:7.1%; font-family:'Fraunces',serif; font-style:italic; font-size:1.45cqw; line-height:1.16; text-align:center; }
 
+  /* Decorative copy is part of the hero artwork only, not selectable HTML. */
+  .hero-exact .note-copy,
+  .hero-exact .date-copy,
+  .hero-exact .song-title-copy,
+  .hero-exact .song-dedication-copy,
+  .hero-exact .song-meta-copy,
+  .hero-exact .song-time-left,
+  .hero-exact .song-time-right,
+  .hero-exact .song-quote-copy {
+    display:none !important;
+    pointer-events:none !important;
+    -webkit-user-select:none !important;
+    user-select:none !important;
+  }
+
   .hero-exact .prev-hit { left:65.5%; top:61.0%; width:4.0%; height:7.6%; }
   .hero-exact .play-hit { left:70.9%; top:59.1%; width:5.4%; height:9.3%; border-radius:50% !important; }
+  .hero-exact .prev-hit, .hero-exact .next-hit, .hero-exact .favorite-hit { border-radius:50%; }
   .hero-exact .next-hit { left:76.7%; top:61.0%; width:4.0%; height:7.6%; }
   .hero-exact .favorite-hit { left:83.2%; top:61.0%; width:4.2%; height:7.6%; }
   .hero-exact .story-hit { left:63.7%; top:88.0%; width:15%; height:4.0%; }
@@ -1488,25 +1557,6 @@
 
     <p class="hero-selectable delivery-copy">Entrega en menos de 24 horas</p>
     <p class="hero-selectable guarantee-copy">Garantía de devolución del 100%</p>
-
-    <p class="hero-selectable note-copy">
-      <span class="text-line">Gracias por</span>
-      <span class="text-line">enseñarme a</span>
-      <span class="text-line">nunca rendirme.</span>
-    </p>
-
-    <p class="hero-selectable date-copy">12.05.1998</p>
-
-    <p class="hero-selectable song-title-copy">Siempre Serás Mi Hogar</p>
-    <p class="hero-selectable song-dedication-copy">Creada para mamá</p>
-    <p class="hero-selectable song-meta-copy">Balada acústica · Español · 3:42</p>
-    <p class="hero-selectable song-time-left">1:27</p>
-    <p class="hero-selectable song-time-right">3:42</p>
-
-    <p class="hero-selectable song-quote-copy">
-      <span class="text-line">En cada abrazo tuyo</span>
-      <span class="text-line">siempre encontré mi hogar</span>
-    </p>
 
     <button type="button" class="hero-hotspot prev-hit" data-hero-message="Habrá más canciones disponibles próximamente." aria-label="Canción anterior">Canción anterior</button>
     <button type="button" class="hero-hotspot play-hit" data-open-hero-song aria-pressed="false" aria-label="Reproducir Siempre Serás Mi Hogar">Reproducir</button>
