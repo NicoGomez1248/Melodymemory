@@ -1279,6 +1279,53 @@
 
   @media (prefers-reduced-motion:reduce) { * { animation:none !important; transition:none !important; } }
 
+  /* ===== CONSISTENT BUTTON INTERACTIONS ===== */
+  .btn-gold,
+  .btn-outline,
+  .filter-chip,
+  .examples-card-body .see,
+  .play-circle,
+  .featured-play-overlay {
+    transition:
+      transform .18s ease,
+      border-color .18s ease,
+      background-color .18s ease,
+      color .18s ease,
+      box-shadow .18s ease,
+      filter .18s ease;
+  }
+
+  .btn-gold:hover,
+  .btn-gold:focus-visible,
+  .filter-chip.active:hover,
+  .filter-chip.active:focus-visible {
+    transform:translateY(-1px);
+    filter:brightness(1.04);
+    box-shadow:0 8px 24px rgba(217,186,118,.30);
+  }
+
+  .btn-outline:hover,
+  .btn-outline:focus-visible,
+  .filter-chip:not(.active):hover,
+  .filter-chip:not(.active):focus-visible {
+    border-color:rgba(217,186,118,.88);
+    box-shadow:0 0 14px rgba(217,186,118,.10);
+  }
+
+  .examples-card-body .see:hover,
+  .examples-card-body .see:focus-visible {
+    color:#f0cd83;
+    text-shadow:0 0 12px rgba(217,186,118,.22);
+  }
+
+  .play-circle:hover,
+  .play-circle:focus-visible,
+  .featured-play-overlay:hover,
+  .featured-play-overlay:focus-visible {
+    border-color:rgba(235,205,143,.92);
+    box-shadow:0 0 18px rgba(217,186,118,.18);
+  }
+
   /* ===== EXACT DESKTOP HERO FROM APPROVED MASTER ===== */
   .hero-stage.hero-exact {
     position:relative;
@@ -1327,13 +1374,9 @@
 
   .hero-exact .hero-hotspot {
     cursor:pointer;
-    border:1px solid transparent !important;
+    border:0 !important;
     border-radius:10px;
-    transition:
-      border-color .22s ease,
-      background-color .22s ease,
-      box-shadow .22s ease,
-      filter .22s ease;
+    transition:filter .18s ease;
   }
 
   .hero-exact .hero-selectable {
@@ -1345,37 +1388,81 @@
   .hero-exact .hero-hotspot:focus-visible,
   .hero-exact .hero-hotspot:active {
     outline:0 !important;
+    border:0 !important;
+    box-shadow:none !important;
   }
 
-  .hero-exact .nav-how:hover,
-  .hero-exact .nav-examples:hover,
-  .hero-exact .nav-occasions:hover,
-  .hero-exact .nav-reactions:hover,
-  .hero-exact .nav-faq:hover,
-  .hero-exact .signin-hit:hover,
-  .hero-exact .listen-hit:hover,
-  .hero-exact .reactions-hit:hover,
-  .hero-exact .prev-hit:hover,
-  .hero-exact .next-hit:hover,
-  .hero-exact .favorite-hit:hover,
-  .hero-exact .story-hit:hover,
-  .hero-exact .nav-how:focus-visible,
-  .hero-exact .nav-examples:focus-visible,
-  .hero-exact .nav-occasions:focus-visible,
-  .hero-exact .nav-reactions:focus-visible,
-  .hero-exact .nav-faq:focus-visible,
-  .hero-exact .signin-hit:focus-visible,
-  .hero-exact .listen-hit:focus-visible,
-  .hero-exact .reactions-hit:focus-visible,
-  .hero-exact .prev-hit:focus-visible,
-  .hero-exact .next-hit:focus-visible,
-  .hero-exact .favorite-hit:focus-visible,
-  .hero-exact .story-hit:focus-visible {
-    border-color:rgba(217,186,118,.72) !important;
-    background:rgba(8,8,7,.12) !important;
-    box-shadow:
-      0 0 0 1px rgba(217,186,118,.08),
-      0 0 18px rgba(217,186,118,.13) !important;
+  /*
+    The hero artwork already contains the visible buttons. These pseudo-elements
+    add the same subtle interaction used by the real buttons below without
+    drawing a second oversized rectangle around the image button.
+  */
+  .hero-exact .hero-hotspot::after {
+    content:'';
+    position:absolute;
+    pointer-events:none;
+    opacity:0;
+    transition:opacity .18s ease, border-color .18s ease, box-shadow .18s ease, background-color .18s ease;
+  }
+
+  /* Dark and outlined buttons: only the existing edge turns gold. */
+  .hero-exact .nav-how::after,
+  .hero-exact .nav-examples::after,
+  .hero-exact .nav-occasions::after,
+  .hero-exact .nav-reactions::after,
+  .hero-exact .nav-faq::after,
+  .hero-exact .signin-hit::after,
+  .hero-exact .listen-hit::after,
+  .hero-exact .reactions-hit::after,
+  .hero-exact .story-hit::after {
+    inset:7%;
+    border:1px solid rgba(217,186,118,.86);
+    border-radius:8px;
+    background:rgba(8,8,7,.04);
+    box-shadow:0 0 14px rgba(217,186,118,.10);
+  }
+
+  /* Navigation has a tighter outline around the text, like the filter chips. */
+  .hero-exact .nav-how::after,
+  .hero-exact .nav-examples::after,
+  .hero-exact .nav-occasions::after,
+  .hero-exact .nav-reactions::after,
+  .hero-exact .nav-faq::after,
+  .hero-exact .signin-hit::after {
+    inset:14% 4%;
+    border-radius:7px;
+  }
+
+  /* Player icon controls use a circular gold edge. */
+  .hero-exact .prev-hit::after,
+  .hero-exact .next-hit::after,
+  .hero-exact .favorite-hit::after {
+    inset:10%;
+    border:1px solid rgba(217,186,118,.82);
+    border-radius:50%;
+    background:rgba(8,8,7,.04);
+    box-shadow:0 0 14px rgba(217,186,118,.10);
+  }
+
+  /* Gold buttons: soft brightness and glow, without any extra border box. */
+  .hero-exact .top-create-hit::after,
+  .hero-exact .main-create-hit::after {
+    inset:4%;
+    border-radius:9px;
+    background:rgba(255,236,188,.08);
+    box-shadow:0 8px 24px rgba(217,186,118,.30), inset 0 0 18px rgba(255,245,218,.10);
+  }
+
+  .hero-exact .play-hit::after {
+    inset:7%;
+    border-radius:50%;
+    background:rgba(255,236,188,.09);
+    box-shadow:0 8px 24px rgba(217,186,118,.32), inset 0 0 16px rgba(255,245,218,.12);
+  }
+
+  .hero-exact .hero-hotspot:hover::after,
+  .hero-exact .hero-hotspot:focus-visible::after {
+    opacity:1;
   }
 
   .hero-exact .top-create-hit:hover,
@@ -1384,13 +1471,7 @@
   .hero-exact .top-create-hit:focus-visible,
   .hero-exact .main-create-hit:focus-visible,
   .hero-exact .play-hit:focus-visible {
-    border-color:rgba(255,230,169,.72) !important;
-    background:rgba(240,196,105,.10) !important;
-    box-shadow:
-      0 0 0 1px rgba(255,237,190,.10),
-      0 0 24px rgba(232,188,95,.35),
-      inset 0 0 20px rgba(255,239,197,.10) !important;
-    filter:brightness(1.06);
+    filter:brightness(1.055);
   }
 
   .hero-exact .hero-hotspot::selection,
