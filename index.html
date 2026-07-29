@@ -1061,6 +1061,87 @@
   .center-cta p { font-family:'Fraunces',serif; font-size:1.1rem; margin-bottom:20px; }
   .center-cta .see-more { display:block; margin-top:16px; font-size:0.85rem; color:rgba(243,239,230,0.55); }
 
+  /* ============ EXAMPLES / REAL REACTIONS SHOWCASE ============ */
+  .examples-showcase {
+    background:radial-gradient(circle at 50% 8%, rgba(123,85,32,.13), transparent 28%), #090706;
+    scroll-margin-top:92px;
+  }
+  .examples-showcase .wrap { max-width:1460px; }
+  .examples-header { text-align:center; max-width:1100px; margin:0 auto 22px; }
+  .examples-header .eyebrow { display:block; margin-bottom:10px; }
+  .examples-header h2 { font-size:clamp(2.1rem,4vw,4rem); line-height:1.08; margin-bottom:12px; }
+  .examples-header p { color:rgba(243,239,230,.70); font-size:clamp(1rem,1.4vw,1.35rem); }
+  .section-anchor { position:relative; top:-92px; height:0; visibility:hidden; }
+  .examples-featured-shell {
+    border:1px solid rgba(217,186,118,.58);
+    border-radius:18px; overflow:hidden; background:#0d0b0a;
+    display:grid; grid-template-columns:57% 43%;
+    box-shadow:0 24px 50px rgba(0,0,0,.38);
+  }
+  .examples-featured-media {
+    position:relative; min-height:470px;
+    background:
+      linear-gradient(115deg, rgba(11,10,9,.10) 0%, rgba(11,10,9,.10) 100%),
+      radial-gradient(circle at 66% 30%, rgba(255,229,180,.16), transparent 16%),
+      linear-gradient(90deg, rgba(43,35,28,.88), rgba(85,72,58,.32)),
+      repeating-linear-gradient(120deg, #2d241d 0px, #2d241d 2px, #342a22 2px, #342a22 52px);
+  }
+  .examples-featured-media::before {
+    content:''; position:absolute; inset:0;
+    background:radial-gradient(circle at 68% 34%, rgba(244,222,187,.18), transparent 12%), radial-gradient(circle at 83% 72%, rgba(255,255,255,.07), transparent 15%);
+  }
+  .featured-story-badge {
+    position:absolute; left:22px; top:20px; z-index:2;
+    display:inline-flex; align-items:center; gap:8px;
+    padding:8px 13px; border-radius:9px; background:rgba(17,14,12,.80);
+    border:1px solid rgba(217,186,118,.30); color:#e6c47f; font-size:.95rem;
+  }
+  .featured-story-badge::before { content:'★'; font-size:.88rem; }
+  .featured-play-overlay {
+    position:absolute; left:50%; top:52%; transform:translate(-50%,-50%); z-index:3;
+    width:76px; height:76px; border-radius:50%; background:rgba(18,16,14,.72);
+    border:2px solid rgba(217,186,118,.74); color:#e7cd93; display:flex; align-items:center; justify-content:center;
+    font-size:2rem; cursor:pointer; box-shadow:0 10px 24px rgba(0,0,0,.28);
+  }
+  .featured-play-overlay:hover { box-shadow:0 10px 24px rgba(0,0,0,.28); transform:translate(-50%,-50%); }
+  .featured-image-caption {
+    position:absolute; left:0; right:0; bottom:18px; text-align:center; z-index:2;
+    color:rgba(243,239,230,.48); font-size:.86rem; letter-spacing:.02em;
+  }
+  .examples-featured-copy { padding:46px 44px 28px; display:flex; flex-direction:column; justify-content:center; }
+  .examples-featured-copy .kicker { color:var(--gold); font-size:.92rem; font-weight:600; letter-spacing:.18em; text-transform:uppercase; margin-bottom:14px; }
+  .examples-featured-copy h3 { font-size:clamp(2rem,3vw,3.3rem); line-height:1.06; margin-bottom:18px; }
+  .examples-featured-copy blockquote { color:rgba(243,239,230,.82); font-size:clamp(1.02rem,1.45vw,1.36rem); line-height:1.52; margin-bottom:22px; }
+  .examples-meta { display:flex; gap:26px; flex-wrap:wrap; color:#e0d5c0; font-size:1rem; margin-bottom:28px; }
+  .examples-meta span { display:flex; align-items:center; gap:8px; opacity:.92; }
+  .examples-featured-buttons { display:flex; gap:16px; flex-wrap:wrap; margin-bottom:24px; }
+  .examples-featured-buttons .btn-gold, .examples-featured-buttons .btn-outline { border-radius:10px; padding:16px 28px; font-size:1rem; }
+  .examples-legal { padding-top:18px; border-top:1px solid rgba(243,239,230,.09); color:rgba(243,239,230,.50); font-size:.92rem; display:flex; gap:12px; flex-wrap:wrap; }
+  .examples-chip-row { display:flex; justify-content:center; gap:12px; flex-wrap:wrap; margin:14px 0 14px; }
+  .examples-chip-row .filter-chip { min-width:110px; padding:11px 18px; border-radius:11px; font-size:.96rem; }
+  .examples-card-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:22px; }
+  .examples-card { background:#0d0b0a; border:1px solid rgba(217,186,118,.42); border-radius:16px; overflow:hidden; box-shadow:0 10px 30px rgba(0,0,0,.26); }
+  .examples-card-media {
+    position:relative; aspect-ratio:4/2.65;
+    background:
+      linear-gradient(180deg, rgba(11,10,9,.02) 0%, rgba(11,10,9,.25) 100%),
+      radial-gradient(circle at 64% 36%, rgba(255,233,196,.12), transparent 14%),
+      linear-gradient(90deg, rgba(65,52,40,.92), rgba(31,25,21,.78)),
+      repeating-linear-gradient(120deg, #2c231d 0px, #2c231d 2px, #342a22 2px, #342a22 42px);
+  }
+  .examples-card-media .play-circle { width:64px; height:64px; font-size:1.6rem; border-width:2px; background:rgba(18,16,14,.68); border-color:rgba(217,186,118,.74); color:#e7cd93; }
+  .examples-card-body { padding:16px 18px 14px; }
+  .examples-card-body .lbl { color:var(--gold); font-size:.86rem; font-weight:600; letter-spacing:.18em; text-transform:uppercase; margin-bottom:10px; }
+  .examples-card-body blockquote { font-family:'Inter',sans-serif; color:#f1ebe0; font-size:1rem; line-height:1.38; margin-bottom:14px; }
+  .examples-card-body .meta { color:rgba(243,239,230,.55); font-size:.92rem; margin-bottom:12px; display:flex; gap:10px; flex-wrap:wrap; }
+  .examples-card-body .see { color:var(--gold); font-size:1rem; font-weight:600; display:inline-flex; align-items:center; gap:10px; }
+  .examples-card-body .see::after { content:'›'; font-size:1.35rem; line-height:1; }
+  .examples-bottom-cta { text-align:center; padding-top:22px; }
+  .examples-bottom-cta p { font-family:'Fraunces',serif; font-size:clamp(1.6rem,2.2vw,2.35rem); margin-bottom:18px; }
+  .examples-bottom-cta .btn-gold { border-radius:10px; padding:18px 42px; font-size:1rem; }
+  .examples-bottom-cta .see-more { display:inline-flex; align-items:center; gap:10px; margin-top:20px; color:var(--gold); font-size:1rem; font-weight:500; }
+  .examples-bottom-cta .see-more::after { content:'›'; font-size:1.35rem; }
+
   /* ============ HOW IT WORKS / TRIPLE M ============ */
   .method-badge { display:inline-flex; align-items:center; gap:10px; border:1px solid var(--line); border-radius:100px; padding:9px 22px; font-size:0.76rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--gold); margin:8px auto 0; }
   .method-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:22px; margin-top:52px; }
@@ -1180,6 +1261,22 @@
     .reaction-grid, .occ-grid { grid-template-columns:1fr; }
     .section { padding:64px 0; }
   }
+  @media (max-width:980px) {
+    .examples-featured-shell { grid-template-columns:1fr; }
+    .examples-featured-media { min-height:360px; }
+    .examples-featured-copy { padding:30px 24px 24px; }
+    .examples-card-grid { grid-template-columns:repeat(2,1fr); }
+  }
+
+  @media (max-width:600px) {
+    .examples-card-grid { grid-template-columns:1fr; }
+    .examples-header h2 { font-size:2rem; }
+    .examples-featured-copy h3 { font-size:2rem; }
+    .examples-featured-buttons { flex-direction:column; }
+    .examples-featured-buttons .btn-gold,
+    .examples-featured-buttons .btn-outline { width:100%; justify-content:center; }
+  }
+
   @media (prefers-reduced-motion:reduce) { * { animation:none !important; transition:none !important; } }
 
   /* ===== EXACT DESKTOP HERO FROM APPROVED MASTER ===== */
@@ -1423,70 +1520,101 @@
   <div class="hero-toast" id="heroToast" role="status" aria-live="polite"></div>
 </section>
 
-<!-- ============ SONG SAMPLES (referenced by nav/hero) ============ -->
-<section class="section" id="samples">
+<!-- ============ EXAMPLES / REAL REACTIONS (referenced by nav/hero) ============ -->
+<section class="section examples-showcase" id="samples">
+  <div id="reactions" class="section-anchor" aria-hidden="true"></div>
   <div class="wrap">
-    <div class="section-head">
-      <span class="eyebrow">Song Samples</span>
-      <h2>Any doubts? <em>Hear a few of our favorites.</em></h2>
-      <p>Real stories, turned into real songs. Video samples will be added here as they're produced.</p>
-    </div>
-    <div class="reaction-grid">
-      <div class="reaction-card"><div class="reaction-thumb"><div class="play-circle">▶</div></div><div class="reaction-body"><div class="lbl">For Mom</div><blockquote>"Always My Home"</blockquote><div class="meta">Acoustic Ballad · English</div><div class="see">Listen to song →</div></div></div>
-      <div class="reaction-card"><div class="reaction-thumb"><div class="play-circle">▶</div></div><div class="reaction-body"><div class="lbl">For a Brother</div><blockquote>"Since We Were Kids"</blockquote><div class="meta">Pop · English</div><div class="see">Listen to song →</div></div></div>
-      <div class="reaction-card"><div class="reaction-thumb"><div class="play-circle">▶</div></div><div class="reaction-body"><div class="lbl">For Grandpa</div><blockquote>"Stories By the Fire"</blockquote><div class="meta">Bolero · English</div><div class="see">Listen to song →</div></div></div>
-      <div class="reaction-card"><div class="reaction-thumb"><div class="play-circle">▶</div></div><div class="reaction-body"><div class="lbl">For the Family</div><blockquote>"Every Sunday"</blockquote><div class="meta">Family Ballad · English</div><div class="see">Listen to song →</div></div></div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ REAL REACTIONS ============ -->
-<section class="section" id="reactions" style="background:var(--panel);">
-  <div class="wrap">
-    <div class="section-head">
-      <span class="eyebrow">Real Reactions</span>
-      <h2>The most powerful emotion isn't explained. <em>It's heard.</em></h2>
-      <p>Discover how real people reacted to hearing their stories turned into song.</p>
+    <div class="examples-header">
+      <span class="eyebrow">Reacciones reales</span>
+      <h2>La emoción más poderosa no se explica. Se escucha.</h2>
+      <p>Descubre cómo personas reales reaccionaron al escuchar sus historias convertidas en canción.</p>
     </div>
 
-    <div class="reactions-featured">
-      <div class="video-side">
-        <div class="featured-badge">★ Featured Story</div>
-        <div class="play-circle">▶</div>
-        <div class="video-placeholder-text">Video coming soon</div>
+    <div class="examples-featured-shell">
+      <div class="examples-featured-media">
+        <div class="featured-story-badge">Historia destacada</div>
+        <button type="button" class="featured-play-overlay" data-hero-message="El video de reacción estará disponible próximamente." aria-label="Ver reacción destacada">▶</button>
+        <div class="featured-image-caption">Vista previa de reacción real</div>
       </div>
-      <div class="text-side">
-        <div class="kicker">The reaction that started it all</div>
-        <h3>A Song For My Grandma</h3>
-        <blockquote>"When she heard her name and recognized our story, her reaction confirmed that Melody Memory had something special."</blockquote>
-        <div class="tag-row"><span>🌐 English</span><span>👪 Family</span><span>🎵 Acoustic Ballad</span></div>
-        <div class="featured-btns">
-          <a href="#" class="btn-gold">▶ Watch Reaction</a>
-          <a href="#" class="btn-outline">🎧 Listen to Song</a>
+
+      <div class="examples-featured-copy">
+        <div class="kicker">La reacción que lo empezó todo</div>
+        <h3>Canción para mi abuelita</h3>
+        <blockquote>“Cuando escuchó su nombre y reconoció nuestra historia, su reacción nos confirmó que Melody Memory tenía algo especial.”</blockquote>
+        <div class="examples-meta">
+          <span>🌐 Español</span>
+          <span>👪 Familia</span>
+          <span>🎵 Balada acústica</span>
+        </div>
+        <div class="examples-featured-buttons">
+          <button type="button" class="btn-gold" data-hero-message="El video de reacción estará disponible próximamente.">▶ Ver reacción</button>
+          <button type="button" class="btn-outline" data-open-hero-song>🎧 Escuchar canción</button>
+        </div>
+        <div class="examples-legal">
+          <span>Reacción real</span>
+          <span>•</span>
+          <span>Canción personalizada</span>
+          <span>•</span>
+          <span>Uso autorizado</span>
         </div>
       </div>
     </div>
 
-    <div class="filter-row">
-      <button class="filter-chip active">All</button>
-      <button class="filter-chip">Spanish</button>
+    <div class="filter-row examples-chip-row">
+      <button class="filter-chip active">Todos</button>
+      <button class="filter-chip">Español</button>
       <button class="filter-chip">English</button>
-      <button class="filter-chip">Family</button>
-      <button class="filter-chip">Partner</button>
-      <button class="filter-chip">Tributes</button>
+      <button class="filter-chip">Familia</button>
+      <button class="filter-chip">Pareja</button>
+      <button class="filter-chip">Homenajes</button>
     </div>
 
-    <div class="reaction-grid">
-      <div class="reaction-card"><div class="reaction-thumb"><div class="play-circle">▶</div></div><div class="reaction-body"><div class="lbl">For Mom</div><blockquote>"She cried as soon as she heard the first line."</blockquote><div class="meta">Birthday · Romantic Pop</div><div class="see">See reaction →</div></div></div>
-      <div class="reaction-card"><div class="reaction-thumb"><div class="play-circle">▶</div></div><div class="reaction-body"><div class="lbl">For a Partner</div><blockquote>"It was the most personal gift I've ever given."</blockquote><div class="meta">Anniversary · Acoustic</div><div class="see">See reaction →</div></div></div>
-      <div class="reaction-card"><div class="reaction-thumb"><div class="play-circle">▶</div></div><div class="reaction-body"><div class="lbl">For Grandpa</div><blockquote>"It felt like our story was alive again."</blockquote><div class="meta">Tribute · Bolero</div><div class="see">See reaction →</div></div></div>
-      <div class="reaction-card"><div class="reaction-thumb"><div class="play-circle">▶</div></div><div class="reaction-body"><div class="lbl">For Family</div><blockquote>"We all ended up listening to it in tears."</blockquote><div class="meta">Holiday · Ballad</div><div class="see">See reaction →</div></div></div>
+    <div class="examples-card-grid">
+      <article class="examples-card">
+        <div class="examples-card-media"><button type="button" class="play-circle" data-hero-message="El video de reacción estará disponible próximamente." aria-label="Ver reacción para mamá">▶</button></div>
+        <div class="examples-card-body">
+          <div class="lbl">Para mamá</div>
+          <blockquote>“Lloró apenas escuchó el primer verso.”</blockquote>
+          <div class="meta"><span>🎵 Cumpleaños</span><span>•</span><span>Pop romántico</span></div>
+          <button type="button" class="see" data-hero-message="El video de reacción estará disponible próximamente.">Ver reacción</button>
+        </div>
+      </article>
+
+      <article class="examples-card">
+        <div class="examples-card-media"><button type="button" class="play-circle" data-hero-message="El video de reacción estará disponible próximamente." aria-label="Ver reacción para pareja">▶</button></div>
+        <div class="examples-card-body">
+          <div class="lbl">Para pareja</div>
+          <blockquote>“Fue el regalo más personal que le he dado.”</blockquote>
+          <div class="meta"><span>🎵 Aniversario</span><span>•</span><span>Acústico</span></div>
+          <button type="button" class="see" data-hero-message="El video de reacción estará disponible próximamente.">Ver reacción</button>
+        </div>
+      </article>
+
+      <article class="examples-card">
+        <div class="examples-card-media"><button type="button" class="play-circle" data-hero-message="El video de reacción estará disponible próximamente." aria-label="Ver reacción para abuelo">▶</button></div>
+        <div class="examples-card-body">
+          <div class="lbl">Para abuelo</div>
+          <blockquote>“Parecía que nuestra historia estaba viva otra vez.”</blockquote>
+          <div class="meta"><span>🎵 Homenaje</span><span>•</span><span>Bolero</span></div>
+          <button type="button" class="see" data-hero-message="El video de reacción estará disponible próximamente.">Ver reacción</button>
+        </div>
+      </article>
+
+      <article class="examples-card">
+        <div class="examples-card-media"><button type="button" class="play-circle" data-hero-message="El video de reacción estará disponible próximamente." aria-label="Ver reacción para familia">▶</button></div>
+        <div class="examples-card-body">
+          <div class="lbl">Para familia</div>
+          <blockquote>“Todos terminamos escuchándola con lágrimas.”</blockquote>
+          <div class="meta"><span>🎵 Navidad</span><span>•</span><span>Balada</span></div>
+          <button type="button" class="see" data-hero-message="El video de reacción estará disponible próximamente.">Ver reacción</button>
+        </div>
+      </article>
     </div>
 
-    <div class="center-cta">
-      <p>Every reaction starts with a real story.</p>
-      <a href="questionnaire.html" class="btn-gold">🎵 Create My Song</a>
-      <a href="#" class="see-more">See more reactions →</a>
+    <div class="examples-bottom-cta">
+      <p>Cada reacción empieza con una historia real.</p>
+      <a href="questionnaire.html" class="btn-gold">🎵 Crear mi canción</a>
+      <a href="#samples" class="see-more">Ver más reacciones</a>
     </div>
   </div>
 </section>
