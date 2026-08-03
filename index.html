@@ -1533,10 +1533,12 @@
     pointer-events:none;
   }
   .hero-exact .polaroid-photo.faces { left:43.84%; top:27.95%; width:14.41%; height:19.23%; }
-  .hero-exact .polaroid-photo.church { left:40.01%; top:64.08%; width:15.73%; height:20.51%; }
+  .hero-exact .polaroid-photo.church { left:40.01%; top:63.44%; width:16.33%; height:24.97%; }
 
   .hero-exact .note-copy {
     transform:rotate(-8deg);
+    will-change:transform;
+    backface-visibility:hidden;
   }
   .hero-exact .note-copy .text-line {
     color:var(--gold-bright) !important;
@@ -1544,10 +1546,14 @@
     text-shadow:none !important;
   }
   .hero-exact .date-copy {
+    transform:rotate(-5deg);
+    will-change:transform;
+    backface-visibility:hidden;
+  }
+  .hero-exact .date-copy span {
     color:var(--gold-bright) !important;
     -webkit-text-fill-color:var(--gold-bright) !important;
     text-shadow:none !important;
-    transform:rotate(-5deg);
   }
   .hero-exact .heart-deco {
     position:absolute;
@@ -1557,6 +1563,148 @@
   }
   .hero-exact .heart-deco.note-heart { left:51.26%; top:21.15%; width:1.914%; height:3.294%; transform:rotate(-8deg); }
   .hero-exact .heart-deco.date-heart { left:44.32%; top:64.72%; width:1.017%; height:1.700%; transform:rotate(-5deg); }
+
+  /* ---- Player card ---- */
+  .hero-exact .player-card-panel {
+    position:absolute;
+    z-index:2;
+    left:54.90%;
+    top:37.83%;
+    width:41.87%;
+    height:54.84%;
+    background:rgba(9,9,10,.62);
+    border:1px solid var(--line-soft);
+    border-radius:1.4cqw;
+    pointer-events:none;
+  }
+  .hero-exact .player-thumbnail {
+    position:absolute;
+    z-index:3;
+    left:55.14%;
+    top:38.79%;
+    width:11.96%;
+    height:14.56%;
+    border-radius:.8cqw;
+    object-fit:cover;
+    display:block;
+    pointer-events:none;
+  }
+  .hero-exact .song-title-copy {
+    color:var(--cream) !important;
+    -webkit-text-fill-color:var(--cream) !important;
+    text-shadow:none !important;
+  }
+  .hero-exact .song-dedication-copy {
+    color:var(--gold-bright) !important;
+    -webkit-text-fill-color:var(--gold-bright) !important;
+    text-shadow:none !important;
+  }
+  .hero-exact .song-meta-copy {
+    display:flex !important;
+    align-items:center;
+    gap:.5cqw;
+    color:var(--cream) !important;
+    -webkit-text-fill-color:var(--cream) !important;
+    text-shadow:none !important;
+    opacity:.85;
+  }
+  .hero-exact .song-meta-copy svg {
+    flex:none;
+    width:.95cqw;
+    height:.95cqw;
+    color:var(--gold) !important;
+    -webkit-text-fill-color:var(--gold) !important;
+  }
+  .hero-exact .song-meta-copy span {
+    color:var(--cream) !important;
+    -webkit-text-fill-color:var(--cream) !important;
+    text-shadow:none !important;
+  }
+  .hero-exact .song-meta-copy .meta-sep { opacity:.6; }
+  .hero-exact .quote-mark {
+    color:var(--gold) !important;
+    -webkit-text-fill-color:var(--gold) !important;
+  }
+  .hero-exact .song-time-left,
+  .hero-exact .song-time-right {
+    color:var(--cream) !important;
+    -webkit-text-fill-color:var(--cream) !important;
+    text-shadow:none !important;
+    opacity:.75;
+  }
+  .hero-exact .song-quote-copy .text-line {
+    color:var(--cream) !important;
+    -webkit-text-fill-color:var(--cream) !important;
+    text-shadow:none !important;
+  }
+  .hero-exact .quote-mark {
+    position:absolute;
+    z-index:3;
+    left:56.82%;
+    top:80.5%;
+    width:1.6%;
+    height:3.6%;
+    color:var(--gold);
+    opacity:.8;
+    pointer-events:none;
+  }
+  .hero-exact .story-hit {
+    color:var(--gold);
+    font-family:'Inter',sans-serif;
+    justify-content:flex-start;
+  }
+
+  .hero-exact .progress-track {
+    position:absolute;
+    z-index:2;
+    left:54.60%;
+    top:76.0%;
+    width:42.22%;
+    height:2px;
+    background:var(--line-soft);
+    pointer-events:none;
+  }
+  .hero-exact .progress-track .filled {
+    position:absolute;
+    left:0; top:0; bottom:0;
+    width:37.8%;
+    background:var(--gold);
+  }
+  .hero-exact .progress-dot {
+    position:absolute;
+    z-index:3;
+    left:70.57%;
+    top:76.51%;
+    width:.9%;
+    height:1.6%;
+    border-radius:50%;
+    background:var(--cream);
+    transform:translate(-50%,-50%);
+    pointer-events:none;
+  }
+  .hero-exact .player-waveform {
+    position:absolute;
+    z-index:2;
+    left:54.78%;
+    top:69.61%;
+    width:42.05%;
+    height:4.68%;
+    display:block;
+    pointer-events:none;
+    opacity:.9;
+  }
+
+  .hero-exact .prev-hit,
+  .hero-exact .next-hit,
+  .hero-exact .favorite-hit { color:var(--cream); }
+  .hero-exact .prev-hit svg,
+  .hero-exact .next-hit svg,
+  .hero-exact .favorite-hit svg { width:1.5cqw; height:1.5cqw; }
+  .hero-exact .play-hit {
+    background:var(--gold) !important;
+    color:var(--black);
+  }
+  .hero-exact .play-hit svg { width:1.7cqw; height:1.7cqw; margin-left:.15cqw; }
 
   .hero-stage.favorite-selected .hero-canvas::after {
     content:'♥';
@@ -1631,26 +1779,42 @@
     <svg class="heart-deco note-heart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 21s-6.7-4.35-9.33-8.2C.87 10.2 1.4 6.6 4.3 5.1 6.6 3.9 9.2 4.6 12 7.6c2.8-3 5.4-3.7 7.7-2.5 2.9 1.5 3.43 5.1 1.63 7.7C18.7 16.65 12 21 12 21Z"/></svg>
     <img class="polaroid-photo faces" src="assets/polaroid-faces.png" alt="Foto polaroid">
 
-    <p class="hero-selectable date-copy">12.05.1998</p>
+    <p class="hero-selectable date-copy"><span>12.05.1998</span></p>
     <svg class="heart-deco date-heart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 21s-6.7-4.35-9.33-8.2C.87 10.2 1.4 6.6 4.3 5.1 6.6 3.9 9.2 4.6 12 7.6c2.8-3 5.4-3.7 7.7-2.5 2.9 1.5 3.43 5.1 1.63 7.7C18.7 16.65 12 21 12 21Z"/></svg>
     <img class="polaroid-photo church" src="assets/polaroid-church.png" alt="Foto polaroid">
 
+    <div class="player-card-panel"></div>
+    <img class="player-thumbnail" src="assets/player-thumbnail.jpg" alt="Portada de la canción">
+
     <p class="hero-selectable song-title-copy">Siempre Serás Mi Hogar</p>
     <p class="hero-selectable song-dedication-copy">Creada para mamá</p>
-    <p class="hero-selectable song-meta-copy">Balada acústica · Español · 3:42</p>
+    <p class="hero-selectable song-meta-copy">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+      <span>Balada acústica</span>
+      <span class="meta-sep">·</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.5 3.5 6 3.5 9s-1 6.5-3.5 9c-2.5-2.5-3.5-6-3.5-9s1-6.5 3.5-9Z"/></svg>
+      <span>Español</span>
+      <span class="meta-sep">·</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span>3:42</span>
+    </p>
     <p class="hero-selectable song-time-left">1:27</p>
     <p class="hero-selectable song-time-right">3:42</p>
+    <div class="progress-track"><div class="filled"></div></div>
+    <div class="progress-dot"></div>
+    <img class="player-waveform" src="assets/player-waveform.png" alt="">
 
+    <svg class="quote-mark" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M9 7c-2.8 0-5 2.2-5 5v5h5v-5H6.5C6.5 10 7.6 8.8 9 8.5V7Zm10 0c-2.8 0-5 2.2-5 5v5h5v-5h-2.5c0-2 1.1-3.2 2.5-3.5V7Z"/></svg>
     <p class="hero-selectable song-quote-copy">
       <span class="text-line">En cada abrazo tuyo</span>
       <span class="text-line">siempre encontré mi hogar</span>
     </p>
 
-    <button type="button" class="hero-hotspot prev-hit" data-hero-message="Habrá más canciones disponibles próximamente." aria-label="Canción anterior">Canción anterior</button>
-    <button type="button" class="hero-hotspot play-hit" data-open-hero-song aria-pressed="false" aria-label="Reproducir Siempre Serás Mi Hogar">Reproducir</button>
-    <button type="button" class="hero-hotspot next-hit" data-hero-message="Habrá más canciones disponibles próximamente." aria-label="Siguiente canción">Siguiente canción</button>
-    <button type="button" class="hero-hotspot favorite-hit" id="heroFavorite" aria-pressed="false" aria-label="Agregar a favoritos">Agregar a favoritos</button>
-    <a class="hero-hotspot story-hit" href="#how-it-works">Ver la historia detrás</a>
+    <button type="button" class="hero-hotspot prev-hit" data-hero-message="Habrá más canciones disponibles próximamente." aria-label="Canción anterior"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 5h2v14H6zM20 5v14l-11-7z"/></svg></button>
+    <button type="button" class="hero-hotspot play-hit" data-open-hero-song aria-pressed="false" aria-label="Reproducir Siempre Serás Mi Hogar"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 4v16l14-8z"/></svg></button>
+    <button type="button" class="hero-hotspot next-hit" data-hero-message="Habrá más canciones disponibles próximamente." aria-label="Siguiente canción"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 5h2v14h-2zM4 5v14l11-7z"/></svg></button>
+    <button type="button" class="hero-hotspot favorite-hit" id="heroFavorite" aria-pressed="false" aria-label="Agregar a favoritos"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 21s-6.7-4.35-9.33-8.2C.87 10.2 1.4 6.6 4.3 5.1 6.6 3.9 9.2 4.6 12 7.6c2.8-3 5.4-3.7 7.7-2.5 2.9 1.5 3.43 5.1 1.63 7.7C18.7 16.65 12 21 12 21Z"/></svg></button>
+    <a class="hero-hotspot story-hit" href="#how-it-works">Ver la historia detrás →</a>
 
     <iframe id="heroAudioFrame" class="hero-audio-frame" title="Audio de Siempre Serás Mi Hogar" aria-hidden="true" allow="autoplay; encrypted-media"></iframe>
   </div>
