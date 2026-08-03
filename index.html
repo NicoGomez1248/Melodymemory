@@ -1392,7 +1392,7 @@
   .hero-exact .story-hit { font-size:.96cqw; }
 
   .hero-exact .eyebrow-copy { left:3.7%; top:23.7%; width:30%; height:3.4%; font-size:1.02cqw; line-height:1.1; letter-spacing:.22em; white-space:nowrap; }
-  .hero-exact .headline-copy { left:3.6%; top:27.7%; width:38.8%; height:24.5%; font-family:'Fraunces',serif; font-size:4.08cqw; line-height:1.10; letter-spacing:-.025em; }
+  .hero-exact .headline-copy { left:2.0%; top:27.7%; width:38.8%; height:24.5%; font-family:'Fraunces',serif; font-size:3.47cqw; line-height:1.10; letter-spacing:-.025em; }
   .hero-exact .headline-copy .text-line {
     color:var(--cream) !important;
     -webkit-text-fill-color:var(--cream) !important;
@@ -1400,7 +1400,7 @@
   }
   .hero-exact .headline-copy .text-line:last-child {
     font-style:italic;
-    font-size:4.75cqw;
+    font-size:4.04cqw;
     color:var(--gold-bright) !important;
     -webkit-text-fill-color:var(--gold-bright) !important;
   }
@@ -1439,6 +1439,49 @@
     border:0;
   }
 
+  /* ============ REVEAL: real HTML content replacing baked pixels ============ */
+  .hero-exact .brand-hit { color:var(--gold-bright); gap:.85cqw; }
+  .hero-exact .brand-hit .logo-icon { display:block; height:5.3cqw; width:auto; }
+  .hero-exact .nav-how,
+  .hero-exact .nav-examples,
+  .hero-exact .nav-occasions,
+  .hero-exact .nav-reactions,
+  .hero-exact .nav-faq,
+  .hero-exact .signin-hit { color:var(--cream); font-family:'Inter',sans-serif; }
+  .hero-exact .top-create-hit {
+    color:var(--black);
+    background:var(--gold) !important;
+    border-radius:999px;
+    font-family:'Inter',sans-serif;
+    font-weight:700;
+  }
+
+  .hero-exact .eyebrow-copy {
+    color:var(--gold) !important;
+    -webkit-text-fill-color:var(--gold) !important;
+    text-shadow:none !important;
+  }
+  .hero-exact .sub-copy .text-line {
+    color:var(--cream) !important;
+    -webkit-text-fill-color:var(--cream) !important;
+    text-shadow:none !important;
+  }
+  .hero-exact .main-create-hit {
+    color:var(--black);
+    background:var(--gold) !important;
+    border-radius:999px;
+    font-family:'Inter',sans-serif;
+    font-weight:700;
+  }
+  .hero-exact .listen-hit {
+    color:var(--cream);
+    background:transparent !important;
+    border:1px solid var(--line-soft) !important;
+    border-radius:999px;
+    font-family:'Inter',sans-serif;
+    font-weight:600;
+  }
+
   .hero-stage.favorite-selected .hero-canvas::after {
     content:'♥';
     position:absolute;
@@ -1469,6 +1512,7 @@
 <section class="hero-stage hero-exact" id="home" aria-label="Melody Memory">
   <div class="hero-canvas">
     <a class="hero-hotspot brand-hit" href="#home" aria-label="Melody Memory, inicio">
+      <img class="logo-icon" src="assets/logo-icon.png" alt="">
       <span>MELODY<br>MEMORY</span>
     </a>
 
