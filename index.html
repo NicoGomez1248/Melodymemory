@@ -1482,6 +1482,50 @@
     font-weight:600;
   }
 
+  .hero-exact .avatar-chip {
+    position:absolute;
+    top:80.02%;
+    width:3.589%;
+    height:6.376%;
+    border-radius:50%;
+    border:2px solid var(--black);
+    object-fit:cover;
+    display:block;
+  }
+  .hero-exact .avatar-chip.a1 { left:3.768%; z-index:2; }
+  .hero-exact .avatar-chip.a2 { left:6.638%; z-index:3; }
+  .hero-exact .avatar-chip.a3 { left:9.569%; z-index:4; }
+  .hero-exact .reactions-hit {
+    color:var(--gold);
+    font-family:'Inter',sans-serif;
+    gap:.4cqw;
+  }
+
+  .hero-exact .delivery-copy,
+  .hero-exact .guarantee-copy {
+    display:flex !important;
+    align-items:center;
+    gap:.5cqw;
+    color:var(--cream) !important;
+    -webkit-text-fill-color:var(--cream) !important;
+    text-shadow:none !important;
+    font-family:'Inter',sans-serif;
+  }
+  .hero-exact .delivery-copy svg,
+  .hero-exact .guarantee-copy svg {
+    flex:none;
+    width:1.25cqw;
+    height:1.25cqw;
+    color:var(--gold) !important;
+    -webkit-text-fill-color:var(--gold) !important;
+  }
+  .hero-exact .guarantee-copy::before {
+    content:'•';
+    position:absolute;
+    left:-1.29cqw;
+    color:var(--gold) !important;
+  }
+
   .hero-stage.favorite-selected .hero-canvas::after {
     content:'♥';
     position:absolute;
@@ -1539,10 +1583,13 @@
 
     <a class="hero-hotspot main-create-hit" href="questionnaire.html">Crear mi canción</a>
     <a class="hero-hotspot listen-hit" href="#samples">Escuchar ejemplos</a>
-    <a class="hero-hotspot reactions-hit" href="#reactions">Ver reacciones reales</a>
+    <img class="avatar-chip a1" src="assets/avatar-1.png" alt="">
+    <img class="avatar-chip a2" src="assets/avatar-2.png" alt="">
+    <img class="avatar-chip a3" src="assets/avatar-3.png" alt="">
+    <a class="hero-hotspot reactions-hit" href="#reactions">Ver reacciones reales →</a>
 
-    <p class="hero-selectable delivery-copy">Entrega en menos de 24 horas</p>
-    <p class="hero-selectable guarantee-copy">Garantía de devolución del 100%</p>
+    <p class="hero-selectable delivery-copy"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M13 2 3 14h7l-1 8 10-12h-7l1-8Z"/></svg>Entrega en menos de 24 horas</p>
+    <p class="hero-selectable guarantee-copy"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3Z"/><path d="M9 12l2 2 4-4" stroke-linecap="round" stroke-linejoin="round"/></svg>Garantía de devolución del 100%</p>
 
     <p class="hero-selectable note-copy">
       <span class="text-line">Gracias por</span>
